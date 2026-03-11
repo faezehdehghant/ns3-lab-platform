@@ -15,10 +15,12 @@ import {
   X,
   GraduationCap,
   FlaskConical,
+  Monitor,
 } from "lucide-react";
 
 const sections = [
   { id: "introduction", label: "Introduction", icon: BookOpen },
+  { id: "getting-started", label: "Getting Started", icon: Monitor },
   { id: "what-is-ns3", label: "What is NS-3?", icon: Server },
   { id: "csma-ca", label: "IEEE 802.11 DCF", icon: Wifi },
   { id: "key-concepts", label: "Key Concepts", icon: Layers },

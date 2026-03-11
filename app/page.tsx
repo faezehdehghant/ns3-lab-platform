@@ -10,10 +10,12 @@ import Example2 from "./components/sections/Example2";
 import BuildingScripts from "./components/sections/BuildingScripts";
 import Commands from "./components/sections/Commands";
 import Resources from "./components/sections/Resources";
+import GettingStarted from "./components/sections/GettingStarted";
 import LabExperiment from "./components/sections/LabExperiment";
 
 const sectionIds = [
   "introduction",
+  "getting-started",
   "what-is-ns3",
   "csma-ca",
   "key-concepts",
@@ -62,6 +64,7 @@ export default function Home() {
       <main className="flex-1 lg:ml-72">
         <div className="mx-auto max-w-4xl px-6 py-16 space-y-24 text-base leading-relaxed">
           <Introduction />
+          <GettingStarted />
           <WhatIsNS3 />
           <CSMACA />
           <KeyConcepts />

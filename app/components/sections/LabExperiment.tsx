@@ -10,7 +10,12 @@ import {
   Settings2,
   Users,
   Gauge,
+  Upload,
+  FileText,
+  FolderArchive,
+  CalendarDays,
 } from "lucide-react";
+import CodeBlock from "../CodeBlock";
 
 const TX_COUNT = 10;
 const CX = 250;
@@ -44,8 +49,12 @@ export default function LabExperiment() {
               Lab Experiment
             </h2>
             <p className="text-base text-foreground/70">
-              IEEE 802.11 DCF Saturation Throughput Study
+              NS-3 Simulation of 802.11 CSMA/CA MAC
             </p>
+          </div>
+          <div className="ml-auto flex items-center gap-2">
+            <CalendarDays size={16} className="text-[#ff3b30]" />
+            <span className="text-sm font-semibold text-foreground">Assigned: 3/11</span>
           </div>
         </div>
 
@@ -637,6 +646,105 @@ export default function LabExperiment() {
               </div>
             </div>
           ))}
+        </div>
+      </motion.div>
+
+      {/* ══════════ 6. Submission ══════════ */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="mt-10"
+      >
+        <h3 className="mb-4 text-xl font-bold text-foreground flex items-center gap-2">
+          <Upload size={20} className="text-[#ff3b30]" />
+          Submission Requirements
+        </h3>
+
+        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04] overflow-hidden">
+          <div className="border-b border-card-border/40 bg-[#ff3b30]/[0.03] px-5 py-4">
+            <p className="text-foreground font-semibold">
+              Submit via Brightspace
+            </p>
+            <p className="text-sm text-foreground/80 mt-1">
+              All code files and the electronic report should be submitted online.
+              Make sure your code works with the NS-3 installation on the provided VM.
+            </p>
+          </div>
+
+          <div className="p-5 space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="flex items-start gap-3 rounded-xl bg-surface px-4 py-4 ring-1 ring-black/[0.04]">
+                <FileText size={20} className="text-[#ff3b30] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-semibold text-foreground">Report (PDF)</span>
+                  <p className="text-sm text-foreground/80 mt-1">
+                    All evaluation plots, throughput data, and discussion of results.
+                    Code (including comments) does <strong>not</strong> count as description
+                    — do not include code files in the report.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 rounded-xl bg-surface px-4 py-4 ring-1 ring-black/[0.04]">
+                <FolderArchive size={20} className="text-[#ff3b30] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-semibold text-foreground">Code (ZIP)</span>
+                  <p className="text-sm text-foreground/80 mt-1">
+                    Include a <strong>readme</strong> file explaining how to run your code.
+                    One common <code className="rounded bg-black/[0.04] px-1.5 py-0.5 text-[#ff3b30] font-mono text-sm">lab1.cc</code> file
+                    for all simulations is recommended.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-accent/30 bg-accent/[0.04] px-5 py-4">
+              <span className="font-semibold text-foreground">Recommended approach</span>
+              <p className="text-sm text-foreground/80 mt-1 mb-3">
+                Create one <code className="rounded bg-black/[0.04] px-1.5 py-0.5 text-accent font-mono text-sm">lab1.cc</code> that
+                accepts command-line arguments for Case (A/B) and Experiment (E1/E2), then use a bash script to run everything:
+              </p>
+              <CodeBlock
+                code={`#!/bin/bash
+# Lab1Run.sh — runs all 4 experiment configurations
+
+# Case A, Experiment 1: vary N
+for N in 5 10 15 20 25 30 35 40; do
+  ./waf --run "scratch/lab1 --case=A --experiment=E1 --nNodes=$N --dataRate=2"
+done
+
+# Case A, Experiment 2: vary R (N=20)
+for R in 0.5 1 2 4 6 8 10 12 14 16; do
+  ./waf --run "scratch/lab1 --case=A --experiment=E2 --nNodes=20 --dataRate=$R"
+done
+
+# Case B, Experiment 1: vary N
+for N in 5 10 15 20 25 30 35 40; do
+  ./waf --run "scratch/lab1 --case=B --experiment=E1 --nNodes=$N --dataRate=2"
+done
+
+# Case B, Experiment 2: vary R (N=20)
+for R in 0.5 1 2 4 6 8 10 12 14 16; do
+  ./waf --run "scratch/lab1 --case=B --experiment=E2 --nNodes=20 --dataRate=$R"
+done`}
+                language="bash"
+                title="Lab1Run.sh"
+              />
+            </div>
+
+            <div className="flex items-start gap-3 rounded-xl border border-[#ff9500]/30 bg-[#ff9500]/[0.05] px-4 py-3">
+              <BarChart3 size={18} className="text-[#ff9500] shrink-0 mt-0.5" />
+              <div>
+                <span className="font-semibold text-foreground">Discussion section</span>
+                <p className="text-sm text-foreground/80">
+                  Discuss results with respect to different case configurations. Use
+                  <strong> MATLAB, Python, R</strong>, or any visualization tool to plot throughput data.
+                  Visualization makes saturation patterns visible — but explaining your CSV data is also accepted.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </motion.div>
     </section>
